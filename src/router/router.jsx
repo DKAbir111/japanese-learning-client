@@ -1,27 +1,69 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
-import Register from "../components/Register";
+import Register from "../pages/Register";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import UserDashBoard from "../layout/UserDashBoard";
 import AdminPanel from "../layout/AdminPanel";
+import ErrorPage from "../pages/ErrorPage";
+import Lessons from "../pages/Admin/Lessons";
+import AddLesson from "../pages/Admin/AddLesson";
+import AddVocabulary from "../pages/Admin/AddVocabulary";
+import ManageUser from "../pages/Admin/ManageUser";
+import VocabulariesManagement from "../pages/Admin/VocabulariesManagement";
+import LessonManagement from "../pages/Admin/LessonManagement";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Login />,
+        errorElement: <ErrorPage />,
     },
     {
-        path: '/register',
-        element: <Register />
+        path: "/register",
+        element: <Register />,
     },
     {
-        path: '/user',
-        element: <PrivateRoute> <UserDashBoard /> </PrivateRoute>
+        path: "/user",
+        element: (
+            <PrivateRoute roleRequired="user">
+                <UserDashBoard />
+            </PrivateRoute>
+        ),
     },
     {
-        path: '/admin',
-        element: <PrivateRoute roleRequired="admin"> <AdminPanel /> </PrivateRoute>
-    }
-])
+        path: "/admin",
+        element: (
+            <PrivateRoute roleRequired="admin">
+                <AdminPanel />
+            </PrivateRoute>
+        ),
+        children: [
+            {
+                path: "/admin",
+                element: <Lessons />
+            },
+            {
+                path: "/admin/add-lesson",
+                element: <AddLesson />
+            },
+            {
+                path: "/admin/add-vocabulary",
+                element: <AddVocabulary />
+            },
+            {
+                path: "/admin/manage-user",
+                element: <ManageUser />
+            },
+            {
+                path: '/admin/lesson-management',
+                element: <LessonManagement />
+            },
+            {
+                path: '/admin/vocabulary-management',
+                element: <VocabulariesManagement />
+            }
+        ]
+    },
+]);
 
 export default router;

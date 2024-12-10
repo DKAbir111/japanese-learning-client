@@ -7,10 +7,10 @@ export default function AdminPanel() {
         <main>
             <TopBar />
             <section className="grid grid-cols-4">
-                <aside className="grid-cols-1">
+                <aside className="col-span-1">
                     <Sidebar />
                 </aside>
-                <div className="grid-cols-3">
+                <div className="col-span-3">
                     <Outlet />
                 </div>
             </section>

@@ -15,7 +15,7 @@ export default function Sidebar() {
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                         {/* Sidebar content here */}
-                        <li><Link to={'/admin'}>Lesson</Link></li>
+                        <li><Link to={'/admin'}>Lessons</Link></li>
                         <li>
                             <Link to={'/admin/add-lesson'}>Add Lesson</Link>
                         </li>

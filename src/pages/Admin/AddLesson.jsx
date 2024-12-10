@@ -1,64 +1,80 @@
-
+import { useState } from "react";
 
 export default function AddLesson() {
+    const [lesson, setLesson] = useState({
+        name: "",
+        number: "",
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setLesson((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const lessonName = e.target.lessonName.value;
-        const lessonNumber = e.target.lessonNumber.value;
-
-        const newLesson = { lessonName, lessonNumber };
-        console.log("Lesson Created:", newLesson);
-        // Make an API call here to save the lesson
+        // Simulate API call to save the lesson
+        console.log("Lesson Created:", lesson);
+        alert("Lesson created successfully!");
+        setLesson({ name: "", number: "" }); // Clear the form
     };
 
     return (
-
-        <div className="flex justify-center items-center mx-auto">
-            <div className="card bg-white shadow-lg rounded-lg max-w-md w-full p-8">
-                <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
-                    Create a New Lesson
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-indigo-100 py-10">
+            <div className="container mx-auto px-4">
+                <h1 className="text-3xl font-bold text-primary text-center mb-8">
+                    ➕ Create a New Lesson
                 </h1>
-                <form onSubmit={handleSubmit}>
-                    {/* Lesson Name */}
-                    <div className="form-control mb-4">
-                        <label className="label mb-2">
-                            <span className="label-text text-gray-600 font-medium">
+                <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-6">
+                            <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Lesson Name
-                            </span>
-                        </label>
-                        <input
-                            type="text"
-                            name="lessonName"
-                            placeholder="Enter lesson name"
-                            className="input input-bordered w-full rounded-md p-3 border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                            required
-                        />
-                    </div>
-                    {/* Lesson Number */}
-                    <div className="form-control mb-4">
-                        <label className="label mb-2">
-                            <span className="label-text text-gray-600 font-medium">
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={lesson.name}
+                                onChange={handleInputChange}
+                                placeholder="Enter Lesson Name"
+                                className="input input-bordered w-full"
+                                required
+                            />
+                        </div>
+                        <div className="mb-6">
+                            <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Lesson Number
-                            </span>
-                        </label>
-                        <input
-                            type="number"
-                            name="lessonNumber"
-                            placeholder="Enter lesson number"
-                            className="input input-bordered w-full rounded-md p-3 border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                            required
-                        />
-                    </div>
-                    {/* Submit Button */}
-                    <div className="form-control mt-6">
-                        <button
-                            type="submit"
-                            className="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white w-full py-3 rounded-md transition duration-300 border-none"
-                        >
-                            Create Lesson
-                        </button>
-                    </div>
-                </form>
+                            </label>
+                            <input
+                                type="number"
+                                name="number"
+                                value={lesson.number}
+                                onChange={handleInputChange}
+                                placeholder="Enter Lesson Number"
+                                className="input input-bordered w-full"
+                                required
+                            />
+                        </div>
+                        <div className="flex justify-end space-x-4">
+                            <button
+                                type="reset"
+                                onClick={() => setLesson({ name: "", number: "" })}
+                                className="btn bg-gray-300 text-gray-700 hover:bg-gray-400 px-6"
+                            >
+                                Clear
+                            </button>
+                            <button
+                                type="submit"
+                                className="btn bg-primary text-white hover:bg-primary-dark px-6"
+                            >
+                                Create Lesson
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

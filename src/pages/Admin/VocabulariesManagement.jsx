@@ -1,61 +1,7 @@
-import { useState, useEffect } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 export default function VocabulariesManagement() {
-    const [vocabularies, setVocabularies] = useState([]);
-    const [filterLessonNo, setFilterLessonNo] = useState("");
-
-    // Simulate fetching data
-    useEffect(() => {
-        const fetchVocabularies = async () => {
-            // Replace with your API call
-            const mockData = [
-                {
-                    id: 1,
-                    word: "こんにちは",
-                    pronunciation: "Konnichiwa",
-                    meaning: "Hello",
-                    whenToSay: "Used for greeting",
-                    lessonNo: 1,
-                },
-                {
-                    id: 2,
-                    word: "ありがとう",
-                    pronunciation: "Arigatou",
-                    meaning: "Thank you",
-                    whenToSay: "Used for expressing gratitude",
-                    lessonNo: 1,
-                },
-                {
-                    id: 3,
-                    word: "さようなら",
-                    pronunciation: "Sayonara",
-                    meaning: "Goodbye",
-                    whenToSay: "Used when parting ways",
-                    lessonNo: 2,
-                },
-            ];
-            setVocabularies(mockData);
-        };
-
-        fetchVocabularies();
-    }, []);
-
-    // Filter vocabularies by Lesson Number
-    const filteredVocabularies = filterLessonNo
-        ? vocabularies.filter((vocab) => vocab.lessonNo === parseInt(filterLessonNo))
-        : vocabularies;
-
-    // Handle delete
-    const handleDelete = (id) => {
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this vocabulary?"
-        );
-        if (confirmDelete) {
-            setVocabularies((prev) => prev.filter((vocab) => vocab.id !== id));
-            alert("Vocabulary deleted successfully.");
-        }
-    };
-
+    const data = useLoaderData()
     return (
         <div className="min-h-screen bg-gray-100 py-10 px-4">
             <div className="container mx-auto">
@@ -66,8 +12,6 @@ export default function VocabulariesManagement() {
                     <input
                         type="number"
                         placeholder="Filter by Lesson No"
-                        value={filterLessonNo}
-                        onChange={(e) => setFilterLessonNo(e.target.value)}
                         className="input input-bordered w-1/4"
                     />
                 </div>
@@ -84,8 +28,8 @@ export default function VocabulariesManagement() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredVocabularies.length > 0 ? (
-                                filteredVocabularies.map((vocab) => (
+                            {data.length > 0 ? (
+                                data.map((vocab) => (
                                     <tr key={vocab.id} className="hover:bg-gray-50">
                                         <td className="py-2 px-4">{vocab.word}</td>
                                         <td className="py-2 px-4">{vocab.meaning}</td>
@@ -93,15 +37,13 @@ export default function VocabulariesManagement() {
                                         <td className="py-2 px-4">{vocab.whenToSay}</td>
                                         <td className="py-2 px-4">{vocab.lessonNo}</td>
                                         <td className="py-2 px-4 flex space-x-2">
-                                            <button
+                                            <Link to='/admin/vocabulary-update'
                                                 className="btn bg-[#5d5ced] text-white"
-                                                onClick={() => alert("Edit feature to be implemented.")}
                                             >
                                                 Edit
-                                            </button>
+                                            </Link>
                                             <button
                                                 className="btn btn-error text-white"
-                                                onClick={() => handleDelete(vocab.id)}
                                             >
                                                 Delete
                                             </button>

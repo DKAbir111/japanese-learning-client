@@ -1,26 +1,33 @@
-import { useState } from "react";
+import axios from 'axios';
 
 export default function AddLesson() {
-    const [lesson, setLesson] = useState({
-        name: "",
-        number: "",
-    });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setLesson((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simulate API call to save the lesson
-        console.log("Lesson Created:", lesson);
-        alert("Lesson created successfully!");
-        setLesson({ name: "", number: "" }); // Clear the form
+
+        const lessonName = e.target.name.value;
+        const lessonNumber = e.target.number.value;
+
+        const newLesson = { lessonName, lessonNumber };
+
+        const token = localStorage.getItem('authToken');
+
+        try {
+            // Send the POST request with lesson data and token for authentication
+            const response = await axios.post('http://localhost:5001/api/add-lesson', newLesson, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+
+            // Handle the response here
+            console.log('Lesson added successfully', response.data);
+        } catch (error) {
+            // Handle error
+            console.error('Verification failed:', error);
+        }
     };
+
 
     return (
         <div className="min-h-screen  py-10">
@@ -37,8 +44,6 @@ export default function AddLesson() {
                             <input
                                 type="text"
                                 name="name"
-                                value={lesson.name}
-                                onChange={handleInputChange}
                                 placeholder="Enter Lesson Name"
                                 className="input input-bordered w-full"
                                 required
@@ -51,21 +56,12 @@ export default function AddLesson() {
                             <input
                                 type="number"
                                 name="number"
-                                value={lesson.number}
-                                onChange={handleInputChange}
                                 placeholder="Enter Lesson Number"
                                 className="input input-bordered w-full"
                                 required
                             />
                         </div>
                         <div className="flex justify-end space-x-4">
-                            <button
-                                type="reset"
-                                onClick={() => setLesson({ name: "", number: "" })}
-                                className="btn bg-gray-300 text-gray-700 hover:bg-gray-400 px-6"
-                            >
-                                Clear
-                            </button>
                             <button
                                 type="submit"
                                 className="btn bg-[#5d5ced] text-white hover:bg-primary-dark px-6"

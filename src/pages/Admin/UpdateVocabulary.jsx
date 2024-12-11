@@ -1,6 +1,5 @@
 import axios from 'axios';
-export default function AddVocabulary() {
-
+export default function UpdateVocabulary() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const word = e.target.word.value;
@@ -32,7 +31,6 @@ export default function AddVocabulary() {
             console.error('Verification failed:', error);
         }
     };
-
     return (
         <div className="min-h-screen py-10">
             <div className="w-10/12 mx-auto px-4">
@@ -113,5 +111,5 @@ export default function AddVocabulary() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

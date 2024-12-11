@@ -65,6 +65,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/admin/vocabulary-management',
+                element: <VocabulariesManagement />,
+                loader: async () => await fetch('http://localhost:5001/api/all-vocabulary')
+            },
+            {
+                path: '/admin/vocabulary-update/:id',
                 element: <VocabulariesManagement />
             }
         ]

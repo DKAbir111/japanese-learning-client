@@ -59,8 +59,8 @@ export default function VocabulariesManagement() {
     return (
         <div className="min-h-screen bg-gray-100 py-10 px-4">
             <div className="container mx-auto">
-                <h1 className="text-3xl font-bold text-primary text-center mb-8">
-                    📚 View All Vocabularies
+                <h1 className="text-2xl font-bold text-center mb-8">
+                    View All Vocabularies
                 </h1>
                 <div className="flex justify-end mb-4">
                     <input
@@ -74,7 +74,7 @@ export default function VocabulariesManagement() {
                 <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
                     <table className="table-auto w-full">
                         <thead>
-                            <tr className="bg-primary text-white">
+                            <tr className="bg-[#5d5ced] text-white">
                                 <th className="py-2 px-4">Word</th>
                                 <th className="py-2 px-4">Meaning</th>
                                 <th className="py-2 px-4">Pronunciation</th>
@@ -94,13 +94,13 @@ export default function VocabulariesManagement() {
                                         <td className="py-2 px-4">{vocab.lessonNo}</td>
                                         <td className="py-2 px-4 flex space-x-2">
                                             <button
-                                                className="btn btn-primary"
+                                                className="btn bg-[#5d5ced] text-white"
                                                 onClick={() => alert("Edit feature to be implemented.")}
                                             >
                                                 Edit
                                             </button>
                                             <button
-                                                className="btn btn-error"
+                                                className="btn btn-error text-white"
                                                 onClick={() => handleDelete(vocab.id)}
                                             >
                                                 Delete

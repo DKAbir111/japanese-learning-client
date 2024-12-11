@@ -1,22 +1,60 @@
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import PropTypes from 'prop-types'
+import axios from 'axios';
+import PropTypes from 'prop-types';
+
 const PrivateRoute = ({ children, roleRequired }) => {
-    const token = localStorage.getItem('authToken');
-    const userRole = localStorage.getItem('userRole'); // Save role during login
+    const [isVerified, setIsVerified] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    if (!token) {
-        return <Navigate to="/login" />;
+    useEffect(() => {
+        const verifyUser = async () => {
+            const token = localStorage.getItem('authToken');
+
+            if (!token) {
+                setIsVerified(false);
+                setLoading(false);
+                return;
+            }
+            try {
+
+                const response = await axios.get('http://localhost:5001/api/verify/profile', {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                console.log(response);
+
+
+                if (roleRequired && response.data.user.role !== roleRequired) {
+                    setIsVerified(false);
+                } else {
+                    setIsVerified(true);
+                }
+            } catch (error) {
+                console.error('Verification failed:', error);
+                setIsVerified(false);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        verifyUser();
+    }, [roleRequired]);
+
+    if (loading) {
+        return <div>Loading...</div>; // Show loading state while verifying
     }
 
-    if (roleRequired && userRole !== roleRequired) {
-        return <Navigate to="/unauthorized" />;
+    if (!isVerified) {
+        return <Navigate to="/login" />; // Redirect if not verified
     }
+
 
     return children;
 };
 
-export default PrivateRoute;
 PrivateRoute.propTypes = {
     children: PropTypes.node.isRequired,
-    roleRequired: PropTypes.string
-}
+    roleRequired: PropTypes.string, // Role required for the route
+};
+
+export default PrivateRoute;

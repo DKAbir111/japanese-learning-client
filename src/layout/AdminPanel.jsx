@@ -4,16 +4,14 @@ import TopBar from "../pages/Admin/TopBar";
 
 export default function AdminPanel() {
     return (
-        <main>
-            <TopBar />
-            <section className="grid grid-cols-4">
-                <aside className="col-span-1">
-                    <Sidebar />
-                </aside>
-                <div className="col-span-3">
-                    <Outlet />
-                </div>
-            </section>
+        <main className="grid grid-cols-7 ">
+            <nav className="col-span-7 mb-16"><TopBar /></nav>
+            <aside className="col-span-1">
+                <Sidebar />
+            </aside>
+            <aside className="col-span-6 ml-5">
+                <Outlet />
+            </aside>
         </main>
 
     )

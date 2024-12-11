@@ -7,14 +7,14 @@ export default function Lessons() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 py-10">
+        <div className="min-h-screen py-10">
             <div className="container mx-auto px-4">
-                <h1 className="text-4xl font-bold text-primary text-center mb-8">
-                    📚 All Lessons
+                <h1 className="text-2xl font-bold text-center mb-8">
+                    All Lessons
                 </h1>
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
-                        <thead className="bg-primary text-white text-left">
+                        <thead className="bg-[#5d5ced] text-white text-left">
                             <tr>
                                 <th className="px-6 py-4 text-lg">Lesson Name</th>
                                 <th className="px-6 py-4 text-lg">Lesson Number</th>
@@ -25,7 +25,7 @@ export default function Lessons() {
                             {lessons.map((lesson) => (
                                 <tr
                                     key={lesson.id}
-                                    className="hover:bg-gray-100 transition-colors duration-200"
+                                    className="hover:bg-[#5d5ced] hover:bg-opacity-15 transition-colors duration-200"
                                 >
                                     <td className="px-6 py-4 text-gray-700">{lesson.name}</td>
                                     <td className="px-6 py-4 text-gray-700">{lesson.number}</td>

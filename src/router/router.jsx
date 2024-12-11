@@ -11,6 +11,7 @@ import AddVocabulary from "../pages/Admin/AddVocabulary";
 import ManageUser from "../pages/Admin/ManageUser";
 import VocabulariesManagement from "../pages/Admin/VocabulariesManagement";
 import LessonManagement from "../pages/Admin/LessonManagement";
+import DashBoard from "../pages/Admin/DashBoard";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/admin",
+                element: <DashBoard />
+            },
+            {
+                path: "/admin/lesson",
                 element: <Lessons />
             },
             {

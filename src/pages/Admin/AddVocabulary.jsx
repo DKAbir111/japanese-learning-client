@@ -32,14 +32,14 @@ export default function AddVocabulary() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-emerald-100 py-10">
-            <div className="container mx-auto px-4">
-                <h1 className="text-3xl font-bold text-primary text-center mb-8">
-                    ➕ Add New Vocabulary
+        <div className="min-h-screen py-10">
+            <div className="w-10/12 mx-auto px-4">
+                <h1 className="text-2xl font-bold text-center mb-8">
+                    Add New Vocabulary
                 </h1>
-                <div className="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-6">
+                <div className="container mx-auto bg-white shadow-lg rounded-lg p-6">
+                    <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-3">
+                        <div className="">
                             <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Japanese Word
                             </label>
@@ -53,7 +53,7 @@ export default function AddVocabulary() {
                                 required
                             />
                         </div>
-                        <div className="mb-6">
+                        <div className="">
                             <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Pronunciation
                             </label>
@@ -67,7 +67,7 @@ export default function AddVocabulary() {
                                 required
                             />
                         </div>
-                        <div className="mb-6">
+                        <div className="col-span-2" >
                             <label className="block text-lg font-medium text-gray-700 mb-2">
                                 When to Say
                             </label>
@@ -81,7 +81,7 @@ export default function AddVocabulary() {
                                 required
                             ></textarea>
                         </div>
-                        <div className="mb-6">
+                        <div className="">
                             <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Lesson Number
                             </label>
@@ -95,7 +95,7 @@ export default function AddVocabulary() {
                                 required
                             />
                         </div>
-                        <div className="mb-6">
+                        <div className="">
                             <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Admin Email
                             </label>
@@ -109,7 +109,7 @@ export default function AddVocabulary() {
                                 required
                             />
                         </div>
-                        <div className="flex justify-end space-x-4">
+                        <div className="flex justify-center space-x-4 col-span-2">
                             <button
                                 type="reset"
                                 onClick={() =>
@@ -121,13 +121,13 @@ export default function AddVocabulary() {
                                         adminEmail: "",
                                     })
                                 }
-                                className="btn bg-gray-300 text-gray-700 hover:bg-gray-400 px-6"
+                                className="btn btn-error text-white px-6"
                             >
                                 Clear
                             </button>
                             <button
                                 type="submit"
-                                className="btn bg-primary text-white hover:bg-primary-dark px-6"
+                                className="btn bg-[#5d5ced] text-white px-6"
                             >
                                 Add Vocabulary
                             </button>

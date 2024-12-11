@@ -24,10 +24,10 @@ export default function LessonManagement() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-10">
+        <div className="min-h-screen py-10">
             <div className="container mx-auto px-4">
-                <h1 className="text-3xl font-bold text-primary text-center mb-8">
-                    ✏️ Edit Lesson
+                <h1 className="text-2xl font-bold text-center mb-8">
+                    Edit Lesson
                 </h1>
                 <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
                     <form onSubmit={handleSubmit}>
@@ -69,7 +69,7 @@ export default function LessonManagement() {
                             </button>
                             <button
                                 type="submit"
-                                className="btn bg-primary text-white hover:bg-primary-dark px-6"
+                                className="btn bg-[#5d5ced] text-white hover:bg-primary-dark px-6"
                             >
                                 Save Changes
                             </button>

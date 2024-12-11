@@ -1,7 +1,49 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function VocabulariesManagement() {
     const data = useLoaderData()
+    const [existingData, setExistingData] = useState(data)
+    const token = localStorage.getItem('authToken');
+    const handleDelete = async (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(`http://localhost:5001/api/vocabulary/${id}`, {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        },
+                    });
+                    if (response.status === 200) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Vocabulary has been deleted.",
+                            icon: "success",
+                        });
+                        const remainingData = existingData.filter(datum => datum._id !== id)
+                        setExistingData(remainingData);
+                    }
+                } catch (error) {
+                    console.error("Error deleting vocabulary:", error);
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to delete the vocabulary. Please try again.",
+                        icon: "error",
+                    });
+                }
+            }
+        });
+    };
     return (
         <div className="min-h-screen bg-gray-100 py-10 px-4">
             <div className="container mx-auto">
@@ -28,8 +70,8 @@ export default function VocabulariesManagement() {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.length > 0 ? (
-                                data.map((vocab) => (
+                            {existingData.length > 0 ? (
+                                existingData.map((vocab) => (
                                     <tr key={vocab.id} className="hover:bg-gray-50">
                                         <td className="py-2 px-4">{vocab.word}</td>
                                         <td className="py-2 px-4">{vocab.meaning}</td>
@@ -37,12 +79,12 @@ export default function VocabulariesManagement() {
                                         <td className="py-2 px-4">{vocab.whenToSay}</td>
                                         <td className="py-2 px-4">{vocab.lessonNo}</td>
                                         <td className="py-2 px-4 flex space-x-2">
-                                            <Link to='/admin/vocabulary-update'
+                                            <Link to={`/admin/vocabulary-update/${vocab._id}`}
                                                 className="btn bg-[#5d5ced] text-white"
                                             >
                                                 Edit
                                             </Link>
-                                            <button
+                                            <button onClick={() => handleDelete(vocab._id)}
                                                 className="btn btn-error text-white"
                                             >
                                                 Delete

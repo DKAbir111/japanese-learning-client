@@ -20,7 +20,6 @@ const PrivateRoute = ({ children, roleRequired }) => {
                 const response = await axios.get('http://localhost:5001/api/verify/profile', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                console.log(response);
 
 
                 if (roleRequired && response.data.user.role !== roleRequired) {
@@ -44,7 +43,7 @@ const PrivateRoute = ({ children, roleRequired }) => {
     }
 
     if (!isVerified) {
-        return <Navigate to="/login" />; // Redirect if not verified
+        return <Navigate to="/" />; // Redirect if not verified
     }
 
 

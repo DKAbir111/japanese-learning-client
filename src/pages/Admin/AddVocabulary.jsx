@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 export default function AddVocabulary() {
 
     const handleSubmit = async (e) => {
@@ -25,8 +26,10 @@ export default function AddVocabulary() {
                 },
             });
 
-
-            console.log('Vocabulary added successfully', response.data);
+            if (response.data) {
+                toast.success("Vocabulary added successfully");
+            }
+            e.target.reset()
         } catch (error) {
 
             console.error('Verification failed:', error);

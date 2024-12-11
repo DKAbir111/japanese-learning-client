@@ -12,6 +12,7 @@ import ManageUser from "../pages/Admin/ManageUser";
 import VocabulariesManagement from "../pages/Admin/VocabulariesManagement";
 import LessonManagement from "../pages/Admin/LessonManagement";
 import DashBoard from "../pages/Admin/DashBoard";
+import UpdateVocabulary from "../pages/Admin/UpdateVocabulary";
 
 const router = createBrowserRouter([
     {
@@ -70,7 +71,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/admin/vocabulary-update/:id',
-                element: <VocabulariesManagement />
+                element: <UpdateVocabulary />,
+                loader: async ({ params }) => await fetch(`http://localhost:5001/api/vocabulary/${params.id}`)
             }
         ]
     },

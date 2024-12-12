@@ -25,7 +25,7 @@ export default function UpdateVocabulary() {
         const token = localStorage.getItem('authToken');
 
         try {
-            const response = await axios.put(`http://localhost:5001/api/vocabulary/${vocab._id}`, updatedVocabulary, {
+            const response = await axios.put(`https://japanese-learing-server.vercel.app/api/vocabulary/${vocab._id}`, updatedVocabulary, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },

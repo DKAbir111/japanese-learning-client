@@ -16,7 +16,7 @@ export default function UpdateLesson() {
         const token = localStorage.getItem('authToken');
 
         try {
-            const response = await axios.put(`http://localhost:5001/api/lessons/${lesson._id}`, newLesson, {
+            const response = await axios.put(`https://japanese-learing-server.vercel.app/api/lessons/${lesson._id}`, newLesson, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
@@ -27,7 +27,9 @@ export default function UpdateLesson() {
                 navigate(-1);
             }
         } catch (error) {
-            console.error('Verification failed:', error);
+            if (error) {
+                return toast.error("Failed to update lesson")
+            }
         }
     };
     const navigatye = useNavigate()

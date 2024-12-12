@@ -17,7 +17,7 @@ const PrivateRoute = ({ children, roleRequired }) => {
                 return;
             }
             try {
-                const response = await axios.get('http://localhost:5001/api/verify/profile', {
+                const response = await axios.get('https://japanese-learing-server.vercel.app/api/verify/profile', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 

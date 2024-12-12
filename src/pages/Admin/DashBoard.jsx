@@ -16,7 +16,7 @@ export default function DashBoard() {
         const fetchDashboardData = async () => {
             try {
                 const token = localStorage.getItem("authToken"); // Ensure the token key matches your implementation
-                const { data } = await axios.get("http://localhost:5001/api/dashboard", {
+                const { data } = await axios.get("https://japanese-learing-server.vercel.app/api/dashboard", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

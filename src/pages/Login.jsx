@@ -1,8 +1,18 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Login() {
     const navigate = useNavigate();
+
+    // State for password visibility toggle
+    const [showPassword, setShowPassword] = useState(false);
+    const [password, setPassword] = useState('');
+
+    // Toggle password visibility
+    const togglePassword = () => {
+        setShowPassword(prevState => !prevState);
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -11,7 +21,7 @@ export default function Login() {
         const password = e.target.password.value;
 
         try {
-            const response = await axios.post('http://localhost:5001/api/auth/login', { email, password });
+            const response = await axios.post('https://japanese-learing-server.vercel.app/api/auth/login', { email, password });
 
             const { token, role } = response.data;
 
@@ -29,39 +39,69 @@ export default function Login() {
     };
 
     return (
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto mt-10">
-            <form className="card-body" onSubmit={handleLogin}>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Email</span>
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        className="input input-bordered"
-                        required
-                    />
+        <div className="bg-[#f9f9f9] min-h-screen flex justify-center items-center">
+            <div className="card bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+                <h2 className="text-3xl font-semibold text-center text-[#5d5ced] mb-6">
+                    <span role="img" aria-label="japanese flag"></span> Welcome to VocabJP
+                </h2>
+
+                <form className="space-y-6" onSubmit={handleLogin}>
+                    {/* Email Input */}
+                    <div className="form-control">
+                        <label className="label text-sm font-semibold text-[#5d5ced]">Email Address</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            className="input input-bordered w-full py-3 px-4 border-[#5d5ced] focus:outline-none focus:border-[#5d5ced]"
+                            required
+                        />
+                    </div>
+
+                    {/* Password Input */}
+                    <div className="form-control">
+                        <label className="label text-sm font-semibold text-[#5d5ced]">Password</label>
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                                className="input input-bordered w-full py-3 px-4 border-[#5d5ced] focus:outline-none focus:border-[#5d5ced]"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePassword}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#5d5ced]"
+                            >
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                        <label className="label mt-2">
+                            <a href="#" className="label-text-alt link link-hover text-[#5d5ced]">
+                                Forgot password?
+                            </a>
+                        </label>
+                    </div>
+
+                    {/* Login Button */}
+                    <div className="form-control mt-6">
+                        <button type="submit" className="btn bg-[#5d5ced] border-none text-white w-full py-3">
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+                {/* Register Link */}
+                <div className="mt-4 text-center">
+                    <small className="text-sm text-gray-600">
+                        Don&apos;t have an account?
+                        <Link to="/register" className="underline text-[#5d5ced] ml-1 hover:text-[#3a3a9b]">Register</Link>
+                    </small>
                 </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Password</span>
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        className="input input-bordered"
-                        required
-                    />
-                    <label className="label">
-                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                    </label>
-                </div>
-                <div className="form-control mt-6">
-                    <button className="btn btn-primary">Login</button>
-                </div>
-            </form>
+            </div>
         </div>
     );
 }

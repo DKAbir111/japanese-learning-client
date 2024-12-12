@@ -7,11 +7,11 @@ const Lessons = () => {
 
     useEffect(() => {
         // Fetch lessons
-        fetch('http://localhost:5001/api/lessons')
+        fetch('https://japanese-learing-server.vercel.app/api/lessons')
             .then((res) => res.json())
             .then((data) => setLessons(data));
 
-        fetch('http://localhost:5001/api/all-vocabulary')
+        fetch('https://japanese-learing-server.vercel.app/api/all-vocabulary')
             .then((res) => res.json())
             .then((data) => setVocabularies(data));
     }, []);

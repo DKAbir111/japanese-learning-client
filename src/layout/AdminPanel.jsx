@@ -4,7 +4,7 @@ import TopBar from "../pages/Admin/TopBar";
 
 export default function AdminPanel() {
     return (
-        <main className="grid grid-cols-7 ">
+        <main className="lg:grid lg:grid-cols-7 ">
             <nav className="col-span-7 mb-16"><TopBar /></nav>
             <aside className="col-span-1">
                 <Sidebar />

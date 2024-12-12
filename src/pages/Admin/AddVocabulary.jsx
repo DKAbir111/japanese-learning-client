@@ -19,8 +19,7 @@ export default function AddVocabulary() {
         const token = localStorage.getItem('authToken');
 
         try {
-
-            const response = await axios.post('http://localhost:5001/api/add-vocabulary', newVocabulary, {
+            const response = await axios.post('https://japanese-learing-server.vercel.app/api/add-vocabulary', newVocabulary, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
@@ -32,7 +31,10 @@ export default function AddVocabulary() {
             e.target.reset()
         } catch (error) {
 
-            console.error('Verification failed:', error);
+            if (error) {
+                toast.error("You are trying to add same vocabulary twice")
+                console.error('Error adding vocabulary:', error);
+            }
         }
     };
 
@@ -43,7 +45,7 @@ export default function AddVocabulary() {
                     Add New Vocabulary
                 </h1>
                 <div className="container mx-auto bg-white shadow-lg rounded-lg p-6">
-                    <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-3">
+                    <form onSubmit={handleSubmit} className="md:grid grid-cols-2 gap-3">
                         <div className="">
                             <label className="block text-lg font-medium text-gray-700 mb-2">
                                 Japanese Word

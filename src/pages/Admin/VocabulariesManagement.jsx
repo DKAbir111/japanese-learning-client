@@ -20,7 +20,7 @@ export default function VocabulariesManagement() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.delete(`http://localhost:5001/api/vocabulary/${id}`, {
+                    const response = await axios.delete(`https://japanese-learing-server.vercel.app/api/vocabulary/${id}`, {
                         headers: {
                             authorization: `Bearer ${token}`,
                         },
@@ -55,10 +55,10 @@ export default function VocabulariesManagement() {
                     <input
                         type="number"
                         placeholder="Filter by Lesson No"
-                        className="input input-bordered w-1/4"
+                        className="input input-bordered w-1/4 hidden md:block"
                     />
                 </div>
-                <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+                <div className="overflow-auto bg-white shadow-lg rounded-lg h-screen lg:h-[550px]">
                     <table className="table-auto w-full">
                         <thead>
                             <tr className="bg-[#5d5ced] text-white">

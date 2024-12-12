@@ -21,7 +21,7 @@ export default function ManageUser() {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.put(
-                        `http://localhost:5001/api/auth/update-role/${id}`,
+                        `https://japanese-learing-server.vercel.app/api/auth/update-role/${id}`,
                         { role: newRole },
                         {
                             headers: {

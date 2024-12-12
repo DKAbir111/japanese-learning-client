@@ -5,6 +5,11 @@ export default function Navbar() {
         <li><Link to={'/user'}>Lessons</Link></li>
         <li><Link to={'/user/tutorials'}>Tutorials</Link></li>
     </>
+    const logout = () => {
+        localStorage.removeItem('authToken');
+        sessionStorage.clear();
+        window.location.href = '/';
+    };
     return (
         <div className="navbar bg-base-100 container mx-auto">
             <div className="navbar-start">
@@ -37,7 +42,7 @@ export default function Navbar() {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Log Out</a>
+                <a className="btn" onClick={logout}>Log Out</a>
             </div>
         </div>
     )

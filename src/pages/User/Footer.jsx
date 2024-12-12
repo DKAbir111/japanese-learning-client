@@ -66,15 +66,8 @@ export default function Footer() {
 
                 {/* Copyright and Host Information */}
                 <p className="text-sm">
-                    © {new Date().getFullYear()} ~日本~ Learn. All rights reserved. Hosted on{" "}
-                    <a
-                        href="https://vercel.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 hover:underline"
-                    >
-                        Vercel
-                    </a>
+                    © {new Date().getFullYear()} ~日本~ Learn. All rights reserved. Developer@abir
+
                 </p>
             </div>
         </footer>

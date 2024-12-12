@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function AddLesson() {
 
@@ -14,17 +15,21 @@ export default function AddLesson() {
 
         try {
             // Send the POST request with lesson data and token for authentication
-            const response = await axios.post('http://localhost:5001/api/add-lesson', newLesson, {
+            const response = await axios.post('https://japanese-learing-server.vercel.app/api/add-lesson', newLesson, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
             });
+            if (response.data) {
+                toast.success("Lesson added successfully");
+                e.target.reset();
 
-            // Handle the response here
-            console.log('Lesson added successfully', response.data);
+            }
         } catch (error) {
-            // Handle error
-            console.error('Verification failed:', error);
+            if (error) {
+                return toast.error("Failed to add lesson")
+            }
+
         }
     };
 

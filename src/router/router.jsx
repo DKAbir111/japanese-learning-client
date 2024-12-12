@@ -18,7 +18,8 @@ import Lesson from "../pages/User/Lesson";
 import Tutorial from "../pages/User/Tutorial";
 import LessonVocabulary from "../pages/User/LessonVocabulary";
 import VocabularyDetails from "../pages/User/VocabularyDetsils";
-import Tutorials from "../pages/User/Tutorials";
+import AddTutorial from "../pages/Admin/AddTutorial";
+import TutorialList from "../pages/User/TutorialList";
 
 const router = createBrowserRouter([
     {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
             {
                 path: "/user",
                 element: <Lesson />,
-                loader: async () => await fetch('http://localhost:5001/api/lessons')
+                loader: async () => await fetch('https://japanese-learing-server.vercel.app/api/lessons')
             },
 
             {
@@ -51,18 +52,18 @@ const router = createBrowserRouter([
             {
                 path: "/user/lesson-vocabulary/:id",
                 element: <LessonVocabulary />,
-                loader: async ({ params }) => await fetch(`http://localhost:5001/api/lesson/${params.id}/vocabulary`)
+                loader: async ({ params }) => await fetch(`https://japanese-learing-server.vercel.app/api/lesson/${params.id}/vocabulary`)
 
             },
             {
                 path: "/user/vocabulary/:id",
                 element: <VocabularyDetails />,
                 loader: async ({ params }) =>
-                    fetch(`http://localhost:5001/api/vocabulary/${params.id}`),
+                    fetch(`https://japanese-learing-server.vercel.app/api/vocabulary/${params.id}`),
             },
             {
                 path: "/user/tutorials",
-                element: <Tutorials />,
+                element: <TutorialList />,
 
             }
         ],
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
             {
                 path: "/admin/manage-user",
                 element: <ManageUser />,
-                loader: async () => await fetch('http://localhost:5001/api/auth/all-users')
+                loader: async () => await fetch('https://japanese-learing-server.vercel.app/api/auth/all-users')
             },
             {
                 path: '/admin/lesson-management',
@@ -103,20 +104,26 @@ const router = createBrowserRouter([
             {
                 path: '/admin/vocabulary-management',
                 element: <VocabulariesManagement />,
-                loader: async () => await fetch('http://localhost:5001/api/all-vocabulary')
+                loader: async () => await fetch('https://japanese-learing-server.vercel.app/api/all-vocabulary')
             },
             {
                 path: '/admin/vocabulary-update/:id',
                 element: <UpdateVocabulary />,
-                loader: async ({ params }) => await fetch(`http://localhost:5001/api/vocabulary/${params.id}`)
+                loader: async ({ params }) => await fetch(`https://japanese-learing-server.vercel.app/api/vocabulary/${params.id}`)
             },
             {
 
                 path: '/admin/lesson-update/:id',
                 element: <UpdateLesson />,
-                loader: async ({ params }) => await fetch(`http://localhost:5001/api/lessons/${params.id}`)
+                loader: async ({ params }) => await fetch(`https://japanese-learing-server.vercel.app/api/lessons/${params.id}`)
 
-            }
+            },
+            {
+
+                path: '/admin/tutorial',
+                element: <AddTutorial />
+
+            },
         ]
     },
 ]);

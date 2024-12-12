@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import VocabularyCard from "./card/VocabularyCard";
 
 export default function VocabulariesManagement() {
     const data = useLoaderData()
@@ -72,25 +73,7 @@ export default function VocabulariesManagement() {
                         <tbody>
                             {existingData.length > 0 ? (
                                 existingData.map((vocab) => (
-                                    <tr key={vocab.id} className="hover:bg-gray-50">
-                                        <td className="py-2 px-4">{vocab.word}</td>
-                                        <td className="py-2 px-4">{vocab.meaning}</td>
-                                        <td className="py-2 px-4">{vocab.pronunciation}</td>
-                                        <td className="py-2 px-4">{vocab.whenToSay}</td>
-                                        <td className="py-2 px-4">{vocab.lessonNo}</td>
-                                        <td className="py-2 px-4 flex space-x-2">
-                                            <Link to={`/admin/vocabulary-update/${vocab._id}`}
-                                                className="btn bg-[#5d5ced] text-white"
-                                            >
-                                                Edit
-                                            </Link>
-                                            <button onClick={() => handleDelete(vocab._id)}
-                                                className="btn btn-error text-white"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <VocabularyCard vocab={vocab} key={vocab._id} handleDelete={handleDelete} />
                                 ))
                             ) : (
                                 <tr>

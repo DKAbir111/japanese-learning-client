@@ -1,10 +1,30 @@
-export default function Lessons() {
-    // Sample data for lessons
-    const lessons = [
-        { id: 1, name: "Basic Greetings", number: 1, vocabCount: 15 },
-        { id: 2, name: "Numbers", number: 2, vocabCount: 10 },
-        { id: 3, name: "Family Members", number: 3, vocabCount: 12 },
-    ];
+import { useState, useEffect } from 'react';
+
+const Lessons = () => {
+    const [lessons, setLessons] = useState([]);
+    const [vocabularies, setVocabularies] = useState([]);
+    const [lessonData, setLessonData] = useState([]);
+
+    useEffect(() => {
+        // Fetch lessons
+        fetch('http://localhost:5001/api/lessons')
+            .then((res) => res.json())
+            .then((data) => setLessons(data));
+
+        fetch('http://localhost:5001/api/all-vocabulary')
+            .then((res) => res.json())
+            .then((data) => setVocabularies(data));
+    }, []);
+
+    useEffect(() => {
+        const mergedData = lessons.map((lesson) => {
+            const vocabCount = vocabularies.filter(
+                (vocab) => vocab.lessonNo === lesson.lessonNumber
+            ).length;
+            return { ...lesson, vocabCount };
+        });
+        setLessonData(mergedData);
+    }, [lessons, vocabularies]);
 
     return (
         <div className="min-h-screen py-10">
@@ -22,15 +42,14 @@ export default function Lessons() {
                             </tr>
                         </thead>
                         <tbody>
-                            {lessons.map((lesson) => (
+                            {lessonData.map((lesson) => (
                                 <tr
-                                    key={lesson.id}
+                                    key={lesson.lessonNumber}
                                     className="hover:bg-[#5d5ced] hover:bg-opacity-15 transition-colors duration-200"
                                 >
-                                    <td className="px-6 py-4 text-gray-700">{lesson.name}</td>
-                                    <td className="px-6 py-4 text-gray-700">{lesson.number}</td>
+                                    <td className="px-6 py-4 text-gray-700">{lesson.lessonName}</td>
+                                    <td className="px-6 py-4 text-gray-700">{lesson.lessonNumber}</td>
                                     <td className="px-6 py-4 text-gray-700">{lesson.vocabCount}</td>
-
                                 </tr>
                             ))}
                         </tbody>
@@ -39,4 +58,6 @@ export default function Lessons() {
             </div>
         </div>
     );
-}
+};
+
+export default Lessons;

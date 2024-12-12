@@ -1,82 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 
+const LessonManagement = () => {
+    const [lessons, setLessons] = useState([]);
+    const [vocabularies, setVocabularies] = useState([]);
+    const [lessonData, setLessonData] = useState([]);
 
-export default function LessonManagement() {
-    // Simulating lesson data
-    const [lesson, setLesson] = useState({
-        name: "Basic Greetings",
-        number: 1,
-    });
+    useEffect(() => {
+        // Fetch lessons
+        fetch('http://localhost:5001/api/lessons')
+            .then((res) => res.json())
+            .then((data) => setLessons(data));
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setLesson((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
+        fetch('http://localhost:5001/api/all-vocabulary')
+            .then((res) => res.json())
+            .then((data) => setVocabularies(data));
+    }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Simulate API call to update the lesson
-        console.log("Updated Lesson:", lesson);
-        alert("Lesson updated successfully!");
-    };
+    useEffect(() => {
+        const mergedData = lessons.map((lesson) => {
+            const vocabCount = vocabularies.filter(
+                (vocab) => vocab.lessonNo === lesson.lessonNumber
+            ).length;
+            return { ...lesson, vocabCount };
+        });
+        setLessonData(mergedData);
+    }, [lessons, vocabularies]);
 
     return (
         <div className="min-h-screen py-10">
             <div className="container mx-auto px-4">
                 <h1 className="text-2xl font-bold text-center mb-8">
-                    Edit Lesson
+                    All Lessons
                 </h1>
-                <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-6">
-                            <label className="block text-lg font-medium text-gray-700 mb-2">
-                                Lesson Name
-                            </label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={lesson.name}
-                                onChange={handleInputChange}
-                                placeholder="Enter Lesson Name"
-                                className="input input-bordered w-full"
-                                required
-                            />
-                        </div>
-                        <div className="mb-6">
-                            <label className="block text-lg font-medium text-gray-700 mb-2">
-                                Lesson Number
-                            </label>
-                            <input
-                                type="number"
-                                name="number"
-                                value={lesson.number}
-                                onChange={handleInputChange}
-                                placeholder="Enter Lesson Number"
-                                className="input input-bordered w-full"
-                                required
-                            />
-                        </div>
-                        <div className="flex justify-end space-x-4">
-                            <button
-                                type="button"
-                                onClick={() => alert("Cancelled")}
-                                className="btn bg-gray-300 text-gray-700 hover:bg-gray-400 px-6"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="submit"
-                                className="btn bg-[#5d5ced] text-white hover:bg-primary-dark px-6"
-                            >
-                                Save Changes
-                            </button>
-                        </div>
-                    </form>
+                <div className="overflow-x-auto">
+                    <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                        <thead className="bg-[#5d5ced] text-white text-left">
+                            <tr>
+                                <th className="px-6 py-4 text-lg">Lesson Name</th>
+                                <th className="px-6 py-4 text-lg">Lesson Number</th>
+                                <th className="px-6 py-4 text-lg">Vocabulary Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {lessonData.map((lesson) => (
+                                <tr
+                                    key={lesson.lessonNumber}
+                                    className="hover:bg-[#5d5ced] hover:bg-opacity-15 transition-colors duration-200"
+                                >
+                                    <td className="px-6 py-4 text-gray-700">{lesson.lessonName}</td>
+                                    <td className="px-6 py-4 text-gray-700">{lesson.lessonNumber}</td>
+                                    <td className="px-6 py-4 text-gray-700">{lesson.vocabCount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     );
-}
+};
+
+export default LessonManagement;

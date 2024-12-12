@@ -43,7 +43,7 @@ const AddTutorial = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
+        <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md mt-20">
             <h2 className="text-xl font-bold mb-4 text-center">Add a New Tutorial</h2>
 
             <form onSubmit={handleSubmit}>

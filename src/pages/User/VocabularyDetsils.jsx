@@ -1,26 +1,48 @@
-import { useLoaderData, useLocation, Link } from "react-router-dom";
+import { useLoaderData, useLocation, Link, useNavigate } from "react-router-dom";
 import { FcSpeaker } from "react-icons/fc";
+import Confetti from 'react-confetti';
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function VocabularyDetails() {
     const wordDetails = useLoaderData();
     const { state } = useLocation();
     const vocabulary = state?.vocabulary || [];
+    const navigate = useNavigate();
 
 
     const currentIndex = vocabulary.findIndex(word => word._id === wordDetails._id);
 
-    // Get the previous and next word details
+
     const prevWord = vocabulary[currentIndex - 1] || null;
     const nextWord = vocabulary[currentIndex + 1] || null;
+    const [showConfetti, setShowConfetti] = useState(false);
 
+
+    // Play pronunciation of the word
     const playPronunciation = (word) => {
         const utterance = new SpeechSynthesisUtterance(word);
         utterance.lang = 'ja-JP';
         window.speechSynthesis.speak(utterance);
     };
 
+
+    useEffect(() => {
+        if (nextWord === null) {
+            setShowConfetti(true);
+            toast.success("You have successfully completed the lesson.")
+            setTimeout(() => {
+                navigate('/user');
+            }, 5000);
+        }
+    }, [nextWord, navigate]);
+
+
+
     return (
         <div className="container mx-auto px-4 py-10">
+            {showConfetti && <Confetti />}
+
             <div className="p-6 bg-white shadow-md rounded-md border-l-4 border-[#5d5ced] flex justify-between items-center">
                 <div>
                     <h1 className="text-3xl font-bold mb-6 text-gray-800">

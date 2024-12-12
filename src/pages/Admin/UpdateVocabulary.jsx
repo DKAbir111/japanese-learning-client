@@ -25,14 +25,16 @@ export default function UpdateVocabulary() {
         const token = localStorage.getItem('authToken');
 
         try {
-            await axios.put(`http://localhost:5001/api/vocabulary/${vocab._id}`, updatedVocabulary, {
+            const response = await axios.put(`http://localhost:5001/api/vocabulary/${vocab._id}`, updatedVocabulary, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
             });
 
-            toast.success("Vocabulary updated successfully")
-            navigate(-1);
+            if (response.data) {
+                toast.success("Vocabulary updated successfully")
+                navigate(-1);
+            }
         } catch (error) {
             console.error('Error updating vocabulary:', error);
         }

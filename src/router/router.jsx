@@ -13,6 +13,7 @@ import VocabulariesManagement from "../pages/Admin/VocabulariesManagement";
 import LessonManagement from "../pages/Admin/LessonManagement";
 import DashBoard from "../pages/Admin/DashBoard";
 import UpdateVocabulary from "../pages/Admin/UpdateVocabulary";
+import UpdateLesson from "../pages/Admin/UpdateLesson";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,13 @@ const router = createBrowserRouter([
                 path: '/admin/vocabulary-update/:id',
                 element: <UpdateVocabulary />,
                 loader: async ({ params }) => await fetch(`http://localhost:5001/api/vocabulary/${params.id}`)
+            },
+            {
+
+                path: '/admin/lesson-update/:id',
+                element: <UpdateLesson />,
+                loader: async ({ params }) => await fetch(`http://localhost:5001/api/lessons/${params.id}`)
+
             }
         ]
     },

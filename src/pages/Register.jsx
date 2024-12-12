@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 export default function Register() {
 
     const navigate = useNavigate()
@@ -11,11 +12,13 @@ export default function Register() {
         const password = e.target.password.value;
         const photo = e.target.photo.value;
         const newUser = { username, email, password, photo };
-        console.log(newUser);
+
         // Send a POST request to your backend
         try {
             const response = await axios.post('http://localhost:5001/api/auth/register', newUser);
-            console.log('Registration successful:', response.data);
+            if (response.data) {
+                toast.success('User Successfully Registered')
+            }
             navigate('/');
         } catch (error) {
             console.error('Error during registration:', error.response?.data || error.message);

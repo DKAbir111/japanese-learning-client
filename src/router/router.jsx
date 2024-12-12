@@ -59,7 +59,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/admin/manage-user",
-                element: <ManageUser />
+                element: <ManageUser />,
+                loader: async () => await fetch('http://localhost:5001/api/auth/all-users')
             },
             {
                 path: '/admin/lesson-management',

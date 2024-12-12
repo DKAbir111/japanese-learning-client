@@ -14,6 +14,10 @@ import LessonManagement from "../pages/Admin/LessonManagement";
 import DashBoard from "../pages/Admin/DashBoard";
 import UpdateVocabulary from "../pages/Admin/UpdateVocabulary";
 import UpdateLesson from "../pages/Admin/UpdateLesson";
+import Lesson from "../pages/User/Lesson";
+import Tutorial from "../pages/User/Tutorial";
+import LessonVocabulary from "../pages/User/LessonVocabulary";
+import VocabularyDetails from "../pages/User/VocabularyDetsils";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +36,29 @@ const router = createBrowserRouter([
                 <UserDashBoard />
             </PrivateRoute>
         ),
+        children: [
+            {
+                path: "/user",
+                element: <Lesson />,
+                loader: async () => await fetch('http://localhost:5001/api/lessons')
+            },
+            {
+                path: "/user/tutorial",
+                element: <Tutorial />
+            },
+            {
+                path: "/user/lesson-vocabulary/:id",
+                element: <LessonVocabulary />,
+                loader: async ({ params }) => await fetch(`http://localhost:5001/api/lesson/${params.id}/vocabulary`)
+
+            },
+            {
+                path: "/user/vocabulary/:id",
+                element: <VocabularyDetails />,
+                loader: async ({ params }) =>
+                    fetch(`http://localhost:5001/api/vocabulary/${params.id}`),
+            },
+        ],
     },
     {
         path: "/admin",

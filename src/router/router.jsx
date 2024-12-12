@@ -18,6 +18,7 @@ import Lesson from "../pages/User/Lesson";
 import Tutorial from "../pages/User/Tutorial";
 import LessonVocabulary from "../pages/User/LessonVocabulary";
 import VocabularyDetails from "../pages/User/VocabularyDetsils";
+import Tutorials from "../pages/User/Tutorials";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
                 element: <Lesson />,
                 loader: async () => await fetch('http://localhost:5001/api/lessons')
             },
+
             {
                 path: "/user/tutorial",
                 element: <Tutorial />
@@ -58,6 +60,11 @@ const router = createBrowserRouter([
                 loader: async ({ params }) =>
                     fetch(`http://localhost:5001/api/vocabulary/${params.id}`),
             },
+            {
+                path: "/user/tutorials",
+                element: <Tutorials />,
+
+            }
         ],
     },
     {
